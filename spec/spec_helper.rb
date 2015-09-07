@@ -29,6 +29,9 @@ RSpec.configure do |config|
     # ...rather than:
     #     # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+
+    # expectations.syntax = [:should, :expect]
+    expectations.syntax = :expect
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
@@ -38,6 +41,34 @@ RSpec.configure do |config|
     # a real object. This is generally recommended, and will default to
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
+  end
+
+  APP_ROOT = File.expand_path('../..', __FILE__)
+
+  # no_output do
+  # .. code here ..
+  # end
+
+  def no_output(&block)
+    original_stdout = $stdout.dup
+    $stdout.reopen('/dev/null')
+    $stdout.sync = true
+    begin
+      yield
+    ensure
+      $stdout.reopen(original_stdout)
+    end
+  end
+
+  def capture_output(&block)
+    original_stdout = $stdout.dup
+    output_catcher = StringIO.new
+    $stdout = output_catcher
+    begin
+      yield
+    ensure
+      $stdout = original_stdout
+    end
   end
 
 # The settings below are suggested to provide a good initial experience
