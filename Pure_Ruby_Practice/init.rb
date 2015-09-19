@@ -15,7 +15,10 @@ year = gets.chomp
 print "Colour: "
 colour = gets.chomp
 
-car = Car.new(make: make, year: year, colour: colour)
+print "Doors: "
+doors = gets.chomp
+
+car = Car.new(make: make, year: year, colour: colour, doors: doors)
 
 puts
 puts "I understand that you want to purchase: 
