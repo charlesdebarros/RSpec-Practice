@@ -2,13 +2,13 @@
 
 source 'https://rubygems.org'
 
-ruby '2.7.2'
+ruby '2.7.3'
 
 gem 'coffee-rails'
 gem 'jbuilder'
 gem 'jquery-rails'
 gem 'pg'
-gem 'rails', '~> 6.0', '>= 6.0.3'
+gem 'rails'
 gem 'sass-rails'
 gem 'sdoc', group: :doc
 gem 'turbolinks'
