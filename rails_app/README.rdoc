@@ -1,4 +1,4 @@
 # Application created to test RSpec test cases
 
-* Ruby 2.6.5
-* Rails 5.2.X
+* Ruby 2.7.3
+* Rails 6.1.4.X
