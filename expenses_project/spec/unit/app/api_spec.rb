@@ -16,14 +16,16 @@ module ExpenseTracker
     let(:ledger) { instance_double('ExpenseTracker::Ledger') }
 
     describe 'POST /expenses' do
+      let(:expense) { {'some' => 'data'} }
+      
+      before do
+        allow(ledger).to receive(:record)
+          .with(expense)
+          .and_return(RecordResult.new(true, 417, nil))
+      end
+      
       context 'when the response is succefully recorded' do
         it 'returns the expense id' do
-          expense = { 'some' => 'data'}
-
-          allow(ledger).to receive(:record)
-            .with(expense)
-            .and_return(RecordResult.new(true, 417, nil))
-
           post '/expenses', JSON.generate(expense)
 
           parsed = JSON.parse(last_response.body)
@@ -31,12 +33,6 @@ module ExpenseTracker
         end
 
         it 'responds with a 200 (OK)' do
-          expense = { 'some' => 'data' }
-
-          allow(ledger).to receive(:record)
-            .with(expense)
-            .and_return(RecordResult.new(true, 417, nil))
-
           post '/expenses', JSON.generate(expense)
           expect(last_response.status).to eq(200)
         end
