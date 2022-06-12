@@ -2,13 +2,13 @@
 
 source 'https://rubygems.org'
 
-ruby '2.7.3'
+ruby '3.0.0'
 
 gem 'coffee-rails'
 gem 'jbuilder'
 gem 'jquery-rails'
 gem 'pg'
-gem 'rails'
+gem 'rails', '~> 6.1', '>= 6.1.6'
 gem 'sass-rails'
 gem 'sdoc', group: :doc
 gem 'turbolinks'
@@ -17,9 +17,16 @@ gem 'uglifier'
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
+  gem 'rubocop-rails', '~> 2.14', '>= 2.14.2'
+  gem 'rubocop-rspec', '~> 2.11', '>= 2.11.1'
 end
 
 group :development do
   gem 'spring'
   gem 'web-console', '~> 2.0'
+end
+
+group :test do
+  # https://github.com/simplecov-ruby/simplecov
+  gem 'simplecov', '~> 0.21.2'
 end

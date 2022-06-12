@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'car'
 require 'shared_examples/a_standard_vehicle'
 
 describe Car do
-
   it_behaves_like('a standard vehicle')
 
-  it "allows reading and writing for :doors" do
+  it 'allows reading and writing for :doors' do
     subject.doors = 1
     expect(subject.doors).to eq(1)
   end
@@ -22,35 +23,33 @@ describe Car do
 
     it 'defaults to 4 if options is neither 2 or 4' do
       door_counts = []
-      [0,1,3,5,6].each do |n|
+      [0, 1, 3, 5, 6].each do |n|
         car = Car.new(doors: n)
         door_counts << car.doors
       end
-      expect(door_counts).to all( eq(4) )
+      expect(door_counts).to all(eq(4))
     end
   end
 
   describe '.colours' do
+    let(:colours) { %w[blue black red green] }
 
-    let(:colours) { ['blue', 'black', 'red', 'green'] }
-
-    it "returns an array of colour names" do
+    it 'returns an array of colour names' do
       expect(Car.colours).to match_array(colours)
     end
   end
 
   describe '#full_name' do
-
     let(:honda) { Car.new(make: 'Honda', year: 2004, colour: 'blue') }
     let(:new_car) { new_car = Car.new }
 
-    it "returns a string in the expected format" do
+    it 'returns a string in the expected format' do
       expect(honda.full_name).to eq('2004 Honda (blue)')
     end
 
     context 'when initialized with no arguments' do
       it 'returns a string using default values' do
-        expect(new_car.full_name).to eq ('2007 Volvo (unknown)')
+        expect(new_car.full_name).to eq('2007 Volvo (unknown)')
       end
     end
   end
@@ -78,5 +77,4 @@ describe Car do
       expect(car.sedan?).to be false
     end
   end
-
 end

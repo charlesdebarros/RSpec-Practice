@@ -2,4 +2,3 @@
 
 require './app/api'
 run ExpenseTracker::API.new
-
