@@ -4,6 +4,7 @@ require 'rack/test'
 require 'json'
 require './app/api'
 
+# ExpenseTracker module
 module ExpenseTracker
   RSpec.describe 'Expense Tracker API' do
     include Rack::Test::Methods

@@ -2,6 +2,7 @@
 
 require 'sinatra/base'
 require 'json'
+require_relative './ledger'
 
 # ExpenseTracker module containing API class
 module ExpenseTracker

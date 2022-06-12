@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'debug'
+
 # Setting the RACK_ENV environment variable to test switches on test-friendly
 # behavior in your web framework. Sinatra normally swallows exceptions
 # and renders a “500 Internal Server Error” response. With this variable set,
