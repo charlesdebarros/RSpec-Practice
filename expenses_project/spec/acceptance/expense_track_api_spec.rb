@@ -24,21 +24,21 @@ module ExpenseTracker
     it 'records submitted expenses' do
       pending 'Need to persist expenses'
       coffee = {
-        'payee'  => 'Starbucks',
+        'payee' => 'Starbucks',
         'amount' => 5.75,
-        'date'   => '2021-11-18'
+        'date' => '2021-11-18'
       }
 
       zoo = {
-        'payee'  => 'Zoo',
+        'payee' => 'Zoo',
         'amount' => 15.25,
-        'date'   => '2021-11-18'
+        'date' => '2021-11-18'
       }
 
       groceries = {
-        'payee'  => 'Whole Foods',
+        'payee' => 'Whole Foods',
         'amount' => 95.20,
-        'date'   => '2021-11-19'
+        'date' => '2021-11-19'
       }
 
       get '/expenses/2021-11-18'

@@ -1,42 +1,43 @@
-describe 'Double' do
+# frozen_string_literal: true
 
-  it "allows stubbing methods" do
-    dbl = double("Chant")
+describe 'Double' do
+  it 'allows stubbing methods' do
+    dbl = double('Chant')
     allow(dbl).to receive(:hey!)
     expect(dbl).to respond_to(:hey!)
   end
 
-  it "allows stubbing a response with a block" do
-    dbl = double("Chant")
+  it 'allows stubbing a response with a block' do
+    dbl = double('Chant')
     # When I say 'hey!', you say "Ho!"
-    allow(dbl).to receive(:hey!) { "Ho!"}
+    allow(dbl).to receive(:hey!) { 'Ho!' }
     # "Hey!", "Ho!"
-    expect(dbl.hey!).to eq("Ho!")
+    expect(dbl.hey!).to eq('Ho!')
   end
 
-  it "allows stubbing responses with #and_return" do
-    dbl = double("Chant")
+  it 'allows stubbing responses with #and_return' do
+    dbl = double('Chant')
     # This looks like a clearer, more readable syntax
-    allow(dbl).to receive(:hey!).and_return("Ho!")
-    expect(dbl.hey!).to eq("Ho!")
+    allow(dbl).to receive(:hey!).and_return('Ho!')
+    expect(dbl.hey!).to eq('Ho!')
   end
 
-  it "allows sutbbing multiple methods with hash syntax" do
-    dbl = double("Person")
+  it 'allows sutbbing multiple methods with hash syntax' do
+    dbl = double('Person')
     allow(dbl).to receive_messages(full_name: 'Mary Smith', initials: 'MTS')
     expect(dbl.full_name).to eq('Mary Smith')
     expect(dbl.initials).to eq('MTS')
   end
 
-  it "allows stubbing with a hash argument to #double" do
-    dbl = double("Person", full_name: 'Mary Smith', initials: 'MTS')
+  it 'allows stubbing with a hash argument to #double' do
+    dbl = double('Person', full_name: 'Mary Smith', initials: 'MTS')
     expect(dbl.full_name).to eq('Mary Smith')
     expect(dbl.initials).to eq('MTS')
   end
 
-  it "allows stubbing multiple responses with #and_return" do
+  it 'allows stubbing multiple responses with #and_return' do
     die = double('Die')
-    allow(die).to receive(:roll).and_return(1,5,2,6)
+    allow(die).to receive(:roll).and_return(1, 5, 2, 6)
     expect(die.roll).to eq(1)
     expect(die.roll).to eq(5)
     expect(die.roll).to eq(2)
@@ -45,7 +46,6 @@ describe 'Double' do
   end
 
   context 'with partial test doubles' do
-
     it 'allows stubbing instance methods on Ruby classes' do
       time = Time.new(2010, 1, 1, 12, 0, 0)
       allow(time).to receive(:year).and_return(1975)
@@ -78,6 +78,7 @@ describe 'Double' do
     it 'allows stubbing database calls a mock object' do
       class Customer
         attr_accessor :name
+
         def self.find
           # database lookup, returns one object
         end
@@ -94,18 +95,19 @@ describe 'Double' do
     it 'allows stubbing database calls with many mock objects' do
       class Customer
         attr_accessor :name
+
         def self.all
           # database lookup, returns an array of objects
         end
       end
 
-        c1 = double('First Customer', name: 'Bob')
-        c2 = double('Second Customer', name: 'Mary')
+      c1 = double('First Customer', name: 'Bob')
+      c2 = double('Second Customer', name: 'Mary')
 
-        allow(Customer).to receive(:all).and_return([c1, c2])
+      allow(Customer).to receive(:all).and_return([c1, c2])
 
-        customers = Customer.all
-        expect(customers[1].name).to eq('Mary')
+      customers = Customer.all
+      expect(customers[1].name).to eq('Mary')
     end
   end
 
@@ -140,32 +142,32 @@ describe 'Double' do
 
   context 'with argument constraints' do
     it 'expects argument will match' do
-      dbl = double("Customer List")
+      dbl = double('Customer List')
       expect(dbl).to receive(:sort).with('name')
       dbl.sort('name')
     end
 
     it 'passes when any arguments are allowed' do
-      dbl = double("Customer List")
+      dbl = double('Customer List')
       # The default if you don't use #with
       expect(dbl).to receive(:sort).with(any_args)
       dbl.sort('country')
     end
 
     it 'works the same with multiple arguments' do
-      dbl = double("Customer List")
+      dbl = double('Customer List')
       expect(dbl).to receive(:sort).with('name', 'asc', true)
       dbl.sort('name', 'asc', true)
     end
 
     it 'allows constraining only some arguments' do
-      dbl = double("Customer List")
+      dbl = double('Customer List')
       expect(dbl).to receive(:sort).with('name', anything, anything)
       dbl.sort('name', 'asc', true)
     end
 
     it 'allows using other matchers' do
-      dbl = double("Customer List")
+      dbl = double('Customer List')
       expect(dbl).to receive(:sort).with(
         a_string_starting_with('n'),
         an_object_eq_to('asc') | an_object_eq_to('desc'),
@@ -191,7 +193,7 @@ describe 'Double' do
         end
 
         def empty
-          @items.each {|id| restock_item(id)}
+          @items.each { |id| restock_item(id) }
         end
       end
 
@@ -215,15 +217,15 @@ describe 'Double' do
 
   context 'with spying abilities' do
     it 'can expect a call after it is received' do
-      dbl = spy("Chant")
-      allow(dbl).to receive(:hey!).and_return("Ho!")
+      dbl = spy('Chant')
+      allow(dbl).to receive(:hey!).and_return('Ho!')
       dbl.hey!
       expect(dbl).to have_received(:hey!)
     end
 
     it 'can use message constrains' do
-      dbl = spy("Chant")
-      allow(dbl).to receive(:hey!).and_return("Ho!")
+      dbl = spy('Chant')
+      allow(dbl).to receive(:hey!).and_return('Ho!')
       dbl.hey!
       dbl.hey!
       dbl.hey!
@@ -231,7 +233,7 @@ describe 'Double' do
     end
 
     it 'can expect any message already sent to a declared spy' do
-      customer = spy("Customer")
+      customer = spy('Customer')
       # Notice that we don't stub :send_invoice
       # allow(customer).to receive(:send_invoice)
       customer.send_invoice
@@ -249,15 +251,15 @@ describe 'Double' do
       allow(customer).to receive(:send_invoice)
       customer.send_invoice
       expect(customer).to have_received(:send_invoice)
-    end   
+    end
   end
 
   context 'using let and a before hook' do
     let(:order) do
-      spy('Order', 
-        process_line_items: nil,
-        charge_credit_card: true,
-        send_confirmation_email: true)
+      spy('Order',
+          process_line_items: nil,
+          charge_credit_card: true,
+          send_confirmation_email: true)
     end
 
     before(:example) do
@@ -266,29 +268,16 @@ describe 'Double' do
       order.send_confirmation_email
     end
 
-    it "calls #process_line_items on the order" do
+    it 'calls #process_line_items on the order' do
       expect(order).to have_received(:process_line_items)
     end
 
-    it "calls #charge_credit_card on the order" do
+    it 'calls #charge_credit_card on the order' do
       expect(order).to have_received(:charge_credit_card)
     end
 
-    it "calls #send_confirmation_email on the order" do
+    it 'calls #send_confirmation_email on the order' do
       expect(order).to have_received(:send_confirmation_email)
     end
   end
-
 end
-
-
-
-
-
-
-
-
-
-
-
-
